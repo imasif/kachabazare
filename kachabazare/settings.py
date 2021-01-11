@@ -87,6 +87,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'kachabazare.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -98,8 +99,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'kachabazare',
-        'USER': 'newuser',
-        'PASSWORD': 'ratfink',
+        'USER': 'root',
+        'PASSWORD': 'gp8083408',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

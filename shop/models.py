@@ -163,3 +163,6 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return f"{self.contact_id} - {self.name}"
+
+    class Meta:
+        verbose_name_plural = "Contact us"
