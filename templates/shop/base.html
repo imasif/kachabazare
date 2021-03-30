@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            {{ page_title|default:"Untitled Page" }}
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="/static/shop/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+{% block nav %}
+    <p>Placeholder text in base template. Replace with page  nav.</p>
+{% endblock nav %}
+
+{% block content %}
+    <p>Placeholder text in base template. Replace with page  content.</p>
+{% endblock content %}
+
+{#<div class="container">#}
+{#    <!-- Content here -->#}
+{##}
+{#    <div class="row">#}
+{#        <div class="col-sm">#}
+{#            One of three columns#}
+{#        </div>#}
+{#        <div class="col-sm">#}
+{#            One of three columns#}
+{#        </div>#}
+{#        <div class="col-sm">#}
+{#            One of three columns#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#<table border="1">#}
+{#        <tr>#}
+{#            <th>Category Title</th>#}
+{#            <th>Product Slug</th>#}
+{#        </tr>#}
+{#        {% for d in data %}#}
+{#        <tr>#}
+{#            <td>#}
+{#                <a href="/categories/{{ d.title }}">{{ d.title }}</a>#}
+{#            </td>#}
+{#            <td>#}
+{#                {{ d.slug }}#}
+{#            </td>#}
+{#        </tr>#}
+{#        {% endfor %}#}
+{#</table>#}
+</body>
+</html>

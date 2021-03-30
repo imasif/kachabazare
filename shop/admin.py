@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import CustomUser, Category, Product, Order, OrderUpdate, ContactUs
+from .models import User, Product, Order, OrderUpdate, ContactUs, Category
 
 # Register your models here.
 
-admin.site.register(CustomUser)
-admin.site.register(Category)
+admin.site.register(User)
+# admin.site.register(Category)
 admin.site.register(OrderUpdate)
 admin.site.register(ContactUs)
 
@@ -21,7 +21,23 @@ class ProductAdmin(admin.ModelAdmin):
     # inlines = [OrdersInline]
 
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'slug')
+    list_filter = ('title',)
+    search_fields = ('title', 'slug')
+    list_per_page = 10
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('order_id', 'first_name', 'email', 'state', 'status', 'display_ordered_item')
+    list_display = ('order_id', 'first_name', 'email', 'state', 'status', 'display_ordered_item',)
     list_filter = ('order_id', 'state', 'status')
+
+    # def last_activity_planned_date(self, obj):
+    #     return ("%s " % (obj.first_name,)).upper()
+    #     upper_case_name.short_description = 'Name'
+        # if latest_activity and latest_activity.status_id == 2:
+        #     return latest_activity.planned_execution_date
+        # else:
+        #     return None

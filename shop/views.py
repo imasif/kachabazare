@@ -5,9 +5,8 @@ from django.http import HttpResponse, Http404, JsonResponse
 from django.views import View
 from django.views import generic
 from django.core.serializers import serialize
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
 from django.shortcuts import get_object_or_404
-
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
@@ -22,12 +21,24 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 UserModel = get_user_model()
 from .forms import SignUpForm
 
-from .models import Product
+from .models import Product, Category
+
+
+class cat(View):
+    def get(self, request):
+        data = Category.objects.all()
+        return render(request, 'shop/categories.html', {"data": data})
+
+
+class catDetails(View):
+    def get(self, request, pk):
+        data = Category.objects.get(title=pk)
+        return render(request, 'shop/category.html', {"data": data})
 
 
 class index(View):
     def get(self, request):
-        return HttpResponse("hello world!!!")
+        return render(request, 'shop/index.html')
 
 
 class signup(View):
@@ -68,11 +79,11 @@ class signup(View):
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
-        user = UserModel._default_manager.get(pk=uid)
+        user = get_user_model()._default_manager.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
     if user is not None and default_token_generator.check_token(user, token):
-        user.is_active = True
+        user.active = True
         user.save()
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
@@ -83,14 +94,24 @@ class ProductListView(View):
     def get(self, request):
         qs = Product.objects.all()
         data = serialize("json", qs)
-        return HttpResponse(data, content_type="application/json")
+        # return HttpResponse(data, content_type="application/json")
+
+        return render(request, 'shop/products.html', {'data': qs})
+
 
 class ProductDetailView(View):
     def get(self, request, pk):
-        try:
-            qs = Product.objects.filter(pk=pk)
-        except Product.DoesNotExist:
-            raise Http404('Book does not exist')
+        # try:
+        #     qs = Product.objects.filter(pk=pk)
+        # except Product.DoesNotExist:
+        #     raise Http404('Book does not exist')
 
-        data = serialize("json", qs)
-        return HttpResponse(data, content_type="application/json")
+        qs = Product.objects.get(pk=pk)
+
+        # data = serialize("json", qs)
+        return render(request, 'shop/product.html', {"data": qs})
+        # return HttpResponse(data, content_type="application/json")
+
+
+def error404(request, exception):
+    return render(request, "shop/404.html")

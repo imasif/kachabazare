@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/something/shop/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<table border="1">
+        <tr>
+            <th>Category Title</th>
+            <th>Product Slug</th>
+        </tr>
+{#        {% for d in data %}#}
+        <tr>
+            <td>
+                {{ data.title }}
+            </td>
+            <td>
+                {{ data.slug }}
+            </td>
+        </tr>
+{#        {% endfor %}#}
+</table>
+</body>
+</html>

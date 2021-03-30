@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -25,35 +24,40 @@ SECRET_KEY = 'hbw7gy%5cuh7l72yszdyv7bi!^7(p-)%#2)_lt^&l1l43)zy@n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost'
+]
 
-AUTH_USER_MODEL = 'shop.CustomUser'
+AUTH_USER_MODEL = 'shop.User'
 
-TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), '../shop/templates'),
-)
+# TEMPLATE_DIRS = (
+#     BASE_DIR / "templates",
+# )
 
 
-#Gmail Mail Configuration
+# Gmail Mail Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'imasifkhan1010@gmail.com'
-EMAIL_HOST_PASSWORD = 'rjbwooycmofknwvz'
+EMAIL_HOST_PASSWORD = 'hpxfacjjavlxnciq'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'noreply@kachabazare.com'
-
+DEFAULT_FROM_EMAIL = 'noreply@shop.com'
 
 # Application definition
 
 INSTALLED_APPS = [
-    'shop.apps.ShopConfig',
+    'shop',
+    'baton',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
+    'baton.autodiscover',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'kachabazare.urls'
@@ -71,7 +76,7 @@ ROOT_URLCONF = 'kachabazare.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,8 +91,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kachabazare.wsgi.application'
 
-
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -98,14 +101,13 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'kachabazare',
+        'NAME': 'shop',
         'USER': 'root',
-        'PASSWORD': 'gp8083408',
+        'PASSWORD': 'ratfink',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -125,7 +127,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -139,8 +140,82 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+# BATON = {
+#     'SITE_HEADER': 'Baton',
+#     'SITE_TITLE': 'Baton',
+#     'INDEX_TITLE': 'Site administration',
+#     'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
+#     'COPYRIGHT': 'copyright © 2017 <a href="https://www.otto.to.it">Otto srl</a>', # noqa
+#     'POWERED_BY': '<a href="https://www.otto.to.it">Otto srl</a>',
+#     'CONFIRM_UNSAVED_CHANGES': True,
+#     'SHOW_MULTIPART_UPLOADING': True,
+#     'ENABLE_IMAGES_PREVIEW': True,
+#     'CHANGELIST_FILTERS_IN_MODAL': True,
+#     'CHANGELIST_FILTERS_ALWAYS_OPEN': False,
+#     'CHANGELIST_FILTERS_FORM': True,
+#     'COLLAPSABLE_USER_AREA': False,
+#     'MENU_ALWAYS_COLLAPSED': False,
+#     'MENU_TITLE': 'Menu',
+#     'MESSAGES_TOASTS': False,
+#     'GRAVATAR_DEFAULT_IMG': 'retro',
+#     'LOGIN_SPLASH': '/static/core/img/login-splash.png',
+#     'SEARCH_FIELD': {
+#         'label': 'Search contents...',
+#         'url': '/search/',
+#     },
+#     'MENU': (
+#         { 'type': 'title', 'label': 'main', 'apps': ('auth', ) },
+#         {
+#             'type': 'app',
+#             'name': 'auth',
+#             'label': 'Authentication',
+#             'icon': 'fa fa-lock',
+#             'default_open': True,
+#             'models': (
+#                 {
+#                     'name': 'user',
+#                     'label': 'Users'
+#                 },
+#                 {
+#                     'name': 'group',
+#                     'label': 'Groups'
+#                 },
+#             )
+#         },
+#         { 'type': 'title', 'label': 'Contents', 'apps': ('flatpages', ) },
+#         { 'type': 'model', 'label': 'Pages', 'name': 'flatpage', 'app': 'flatpages' },
+#         { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+#         { 'type': 'free', 'label': 'My parent voice', 'children': [
+#             { 'type': 'model', 'label': 'A Model', 'name': 'mymodelname', 'app': 'myapp', 'icon': 'fa fa-gavel' },
+#             { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
+#         ] },
+#     ),
+#     'ANALYTICS': {
+#         # 'CREDENTIALS': os.path.join(BASE_DIR, 'credentials.json'),
+#         # 'VIEW_ID': '12345678',
+#     }
+# }
+BATON = {
+    'SITE_HEADER': 'Shop',
+    'SITE_TITLE': 'Shop',
+    'INDEX_TITLE': 'Site Admin',
+    'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
+    'COPYRIGHT': 'copyright © 2021 <a href="#">Shop</a>', # noqa
+    'POWERED_BY': '<a href="#">Shop</a>',
+    'CONFIRM_UNSAVED_CHANGES': True,
+    'SHOW_MULTIPART_UPLOADING': True,
+    'MENU': (
+        { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+    ),
+}

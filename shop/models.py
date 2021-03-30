@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=255, default=None, null=True)
     last_name = models.CharField(max_length=255, default=None, null=True)
 
@@ -57,8 +57,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     state = models.CharField(max_length=255, default=None, null=True)
     zip_code = models.CharField(max_length=255, default=None, null=True)
 
-    created_at = models.DateTimeField(
-        auto_now_add=True, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = UserManager()
@@ -71,7 +70,7 @@ class Category(models.Model):
     updated_at = models.DateTimeField('date time updated at', auto_now=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.title} | {self.slug}"
 
     class Meta:
         ordering = ['title']
@@ -79,9 +78,9 @@ class Category(models.Model):
 
 class Product(models.Model):
     UNIT_TYPES_CHOICES = (
-        ('count', 0),
-        ('weight', 1),
-        ('volume', 2),
+        ('count', "COUNT"),
+        ('weight', "WEIGHT"),
+        ('volume', "VOLUME"),
     )
 
     product_id = models.AutoField(primary_key=True)

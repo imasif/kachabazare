@@ -87,7 +87,7 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(help_text='Added products', to='shop.Product'),
         ),
         migrations.CreateModel(
-            name='CustomUser',
+            name='User',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('password', models.CharField(max_length=128, verbose_name='password')),

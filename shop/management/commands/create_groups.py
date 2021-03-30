@@ -11,7 +11,7 @@ import logging
 # ct = ContentType.objects.get_for_model(Order)
 # permission = Permission.objects.create(codename='can_place_order', name='Can place order', content_type=ct)
 # customer_group.permissions.add(permission)
-from shop.models import CustomUser
+from shop.models import User
 
 GROUPS = {
     "Administration": {
@@ -75,13 +75,13 @@ class Command(BaseCommand):
 
                 new_user = None
                 if user_name == "Admin":
-                    new_user, created = CustomUser.objects.get_or_create(
+                    new_user, created = User.objects.get_or_create(
                         first_name="Admin",
                         last_name="User",
                         email=USERS[user_name][1],
                         active=True, is_staff=True, is_superuser=True,)
                 else:
-                    new_user, created = CustomUser.objects.get_or_create(
+                    new_user, created = User.objects.get_or_create(
                         first_name="Auto created",
                         last_name="User",
                         email=USERS[user_name][1],)
