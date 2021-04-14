@@ -39,7 +39,7 @@ GROUPS = {
 }
 
 USERS = {
-    "my_member_user": ["Customer", "imasif@gmail.com", "1234"],
+    "my_member_user": ["Customer", "asif@gmail.com", "1234"],
     "Admin": ["Administration", "imasifkhan1010@gmail.com", "1234"],
 }
 

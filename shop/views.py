@@ -45,16 +45,20 @@ class signup(View):
     def get(self, request):
         return render(request, 'shop/signup.html')
 
+    # def put(self, request):
+    #     return HttpResponse('sdsadada')
+
     def post(self, request):
         form = SignUpForm(request.POST)
 
         customer_group, created = Group.objects.get_or_create(name='Customer')
 
         # print(SignUpForm)
-        print(form.errors.as_data())
+        # print(form.fields)
+        # print(form.errors.as_json())
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.active = False
             user.save()
             customer_group.user_set.add(user)
             current_site = get_current_site(request)
@@ -72,22 +76,23 @@ class signup(View):
             email.send()
             return HttpResponse('Please confirm your email address to complete the registration')
         else:
-            form = SignUpForm()
-        return render(request, 'shop/signup.html', {'form': form})
+            # form = SignUpForm()
+            return render(request, 'shop/signup.html', {'form': form})
 
 
-def activate(request, uidb64, token):
-    try:
-        uid = urlsafe_base64_decode(uidb64).decode()
-        user = get_user_model()._default_manager.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-    if user is not None and default_token_generator.check_token(user, token):
-        user.active = True
-        user.save()
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
-    else:
-        return HttpResponse('Activation link is invalid!')
+class ActivateURL(View):
+    def get(self, request, uidb, token):
+        try:
+            uid = urlsafe_base64_decode(uidb).decode()
+            user = get_user_model()._default_manager.get(pk=uid)
+        except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+        if user is not None and default_token_generator.check_token(user, token):
+            user.active = True
+            user.save()
+            return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        else:
+            return HttpResponse('Activation link is invalid!')
 
 
 class ProductListView(View):

@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'baton.autodiscover',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -211,11 +212,17 @@ BATON = {
     'SITE_TITLE': 'Shop',
     'INDEX_TITLE': 'Site Admin',
     'SUPPORT_HREF': 'https://github.com/otto-torino/django-baton/issues',
-    'COPYRIGHT': 'copyright © 2021 <a href="#">Shop</a>', # noqa
+    'COPYRIGHT': 'copyright © 2021 <a href="#">Shop</a>',  # noqa
     'POWERED_BY': '<a href="#">Shop</a>',
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'MENU': (
-        { 'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it', 'perms': ('flatpages.add_flatpage', 'auth.change_user') },
+        {'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it',
+         'perms': ('flatpages.add_flatpage', 'auth.change_user')},
     ),
 }
+
+template_name = "login.html"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
