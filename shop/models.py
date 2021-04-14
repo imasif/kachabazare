@@ -44,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    session_token = models.CharField(max_length=10, default=0)
+    # session_token = models.CharField(max_length=10, default=0)
 
     active = models.BooleanField(default=False)
     # a admin user; non super-user
@@ -59,6 +59,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    profile_image = models.FileField(upload_to='static/images')
 
     objects = UserManager()
 
@@ -94,7 +96,7 @@ class Product(models.Model):
     per_unit_price = models.FloatField('unit price')
     available_quantity = models.IntegerField()
     publish_date = models.DateField()
-    product_image = models.ImageField(upload_to='shop/images')
+    product_image = models.ImageField(upload_to='static/images')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateTimeField('date time created at', auto_now_add=True)
     updated_at = models.DateTimeField('date time updated at', auto_now=True)

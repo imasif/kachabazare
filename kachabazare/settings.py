@@ -217,6 +217,7 @@ BATON = {
     'CONFIRM_UNSAVED_CHANGES': True,
     'SHOW_MULTIPART_UPLOADING': True,
     'MENU': (
+        {'type': 'title', 'label': 'main', 'apps': ('auth', )},
         {'type': 'free', 'label': 'Custom Link', 'url': 'http://www.google.it',
          'perms': ('flatpages.add_flatpage', 'auth.change_user')},
     ),

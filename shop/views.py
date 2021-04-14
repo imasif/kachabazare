@@ -49,7 +49,7 @@ class signup(View):
     #     return HttpResponse('sdsadada')
 
     def post(self, request):
-        form = SignUpForm(request.POST)
+        form = SignUpForm(request.POST, request.FILES)
 
         customer_group, created = Group.objects.get_or_create(name='Customer')
 
