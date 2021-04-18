@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <title>Signup</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/static/shop/bootstrap/css/bootstrap.min.css">
+{% extends "shop/base.html" %}
 
-        {% load static %}
-        <script type="text/javascript" src="{% static 'shop/jquery/jquery-3.6.0.min.js' %}"></script>
-    </head>
-<body>
-{% comment %}
-{% if form.errors %}
-    {% for key, val in form.errors.items %}
-    <div id="error">{{ val }}</div>
-    {% endfor %}
-{% endif %}
-{% endcomment %}
+{% block nav %}
+    {% include "shop/navbar.html" %}
+{% endblock nav %}
+
+
+{% block content %}
 <style>
     div.error {
         color: red;
@@ -93,17 +82,20 @@
                     <br/>
                     <br/>
                     <button type="submit" class="btn btn-primary">Submit</button>
+
+                    <br/>
+                    Forgot password? <a href='{% url 'password_reset' %}'>reset it here</a>
                 </form>
             </div>
         </div>
     </div>
 
-    <script>
+<script>
     // Add the following code if you want the name of the file appear on select
     $(".custom-file-input").on("change", function() {
       var fileName = $(this).val().split("\\").pop();
       $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
-    </script>
-</body>
-</html>
+</script>
+
+{% endblock %}

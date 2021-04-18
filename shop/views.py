@@ -41,24 +41,18 @@ class index(View):
         return render(request, 'shop/index.html')
 
 
-class signup(View):
+class Signup(View):
     def get(self, request):
-        return render(request, 'shop/signup.html')
-
-    # def put(self, request):
-    #     return HttpResponse('sdsadada')
+        return render(request, 'shop/Signup.html')
 
     def post(self, request):
         form = SignUpForm(request.POST, request.FILES)
 
         customer_group, created = Group.objects.get_or_create(name='Customer')
 
-        # print(SignUpForm)
-        # print(form.fields)
-        # print(form.errors.as_json())
         if form.is_valid():
             user = form.save(commit=False)
-            user.active = False
+            user.is_active = False
             user.save()
             customer_group.user_set.add(user)
             current_site = get_current_site(request)
@@ -77,7 +71,7 @@ class signup(View):
             return HttpResponse('Please confirm your email address to complete the registration')
         else:
             # form = SignUpForm()
-            return render(request, 'shop/signup.html', {'form': form})
+            return render(request, 'shop/Signup.html', {'form': form})
 
 
 class ActivateURL(View):
@@ -88,7 +82,7 @@ class ActivateURL(View):
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
             user = None
         if user is not None and default_token_generator.check_token(user, token):
-            user.active = True
+            user.is_active = True
             user.save()
             return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
         else:

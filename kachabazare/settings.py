@@ -40,7 +40,7 @@ AUTH_USER_MODEL = 'shop.User'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'imasifkhan1010@gmail.com'
-EMAIL_HOST_PASSWORD = 'hpxfacjjavlxnciq'
+EMAIL_HOST_PASSWORD = 'eqfeildizyngketh'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'noreply@shop.com'
@@ -223,7 +223,7 @@ BATON = {
     ),
 }
 
-template_name = "login.html"
+# template_name = "login.html"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 CRISPY_TEMPLATE_PACK = "bootstrap4"

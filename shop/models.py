@@ -11,7 +11,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
 
         user = self.model(
-            email=self.normalize_email(email),
+            email=self.normalize_email(email)
         )
 
         user.set_password(password)
@@ -24,8 +24,10 @@ class UserManager(BaseUserManager):
         """
         user = self.create_user(
             email,
-            password=password,
+            password=password
         )
+
+        user.is_active = True
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
@@ -46,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # session_token = models.CharField(max_length=10, default=0)
 
-    active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     # a admin user; non super-user
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)  # a superuser
